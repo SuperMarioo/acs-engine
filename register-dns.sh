@@ -13,6 +13,8 @@ cat > /etc/network/if-up.d/register-dns <<EOF
     ip=\$(ip address show eth0 | awk '/inet / {print \$2}' | cut -d/ -f1)
     host=\$(hostname -s)
     
+    sed -i '/'\$host'/d' /etc/hosts
+
     sed  -i -e '\$a\'\$ip'  '\$host'' /etc/hosts
     
 EOF
